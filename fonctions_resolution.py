@@ -1,13 +1,13 @@
 import numpy as np
 from classe import Noeud, Barre
 
-
 def resolution(noeuds: list[Noeud], barres: list[Barre]) -> np.ndarray:
     """
     Resout le système:
     Construit la matrice d'equations du systeme
     L'inverse avec l'algorithme de Gauss-Jordan
     Renvoie l'inverse multiplié par les parametres d'entrée (forces exterieurs)
+    Calcule les deplacements nodaux
     """
     nbrEqua = 2*len(noeuds)
     nbrInco = len(barres)
@@ -37,10 +37,9 @@ def resolution(noeuds: list[Noeud], barres: list[Barre]) -> np.ndarray:
     residu = np.linalg.norm(K @ S - forces) / (norme if norme != 0 else 1.0)
     print(f"Le résidu de la solution est {residu}")
 
+    _deformation(noeuds, barres, K_inv, S)
+
     return S
-
-
-
 
 
 def _constru_matrice(noeuds: list[Noeud], barres: list[Barre]) -> np.ndarray:
@@ -120,3 +119,22 @@ def _invertion_matrice(A: np.ndarray) -> np.ndarray:
             inverse[i][j] = matriceAug[i][n + j]
     
     return inverse
+
+
+    
+def _deformation(noeuds: list[Noeud], barres: list[Barre], K_inv: np.ndarray, S: np.ndarray) -> None:
+    n = len(noeuds)
+    b = len(barres)
+    for i in range(n):
+        if not noeuds[i].ux:
+            f = np.zeros(2*n)
+            f[2*i] = 1
+            s = K_inv @ f
+            for j in range(b):
+                noeuds[i].dpos[0] -= s[j]*S[j]*barres[j].len / barres[j].EA
+        if not noeuds[i].uy:
+            f = np.zeros(2*n)
+            f[2*i+1] = 1
+            s = K_inv @ f
+            for j in range(b):
+                noeuds[i].dpos[1] -= s[j]*S[j]*barres[j].len / barres[j].EA

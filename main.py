@@ -10,11 +10,11 @@ def main():
     parser.add_argument("path", help="Chemin vers le fichier .txt de données du treillis")
     args = parser.parse_args()
 
-    noeuds, barres = ld.lecture_data(args.path)
+    noeuds, barres, parametres = ld.lecture_data(args.path)
     
     solution = resolution(noeuds, barres)
     
-    rr.print_resultats(solution, noeuds, barres)
+    rr.print_resultats(solution, noeuds, barres, parametres)
 
 
 if __name__ == "__main__":

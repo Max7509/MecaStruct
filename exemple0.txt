@@ -1,6 +1,9 @@
+Parametres
+outputs FALSE FALSE TRUE 1
+
 Noeuds:
-0 0 -10 0 y
+0 0 10 0 y
 1 0 0   0 f
 
 Barres:
-0 1
+0 1 100
