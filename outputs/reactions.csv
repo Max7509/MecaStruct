@@ -1,14 +1,6 @@
 node_id,ux_fixed,uy_fixed,Rx,Ry
-0,False,True,,7.777777777777782
+0,False,True,,-7.5
 1,False,False,,
 2,False,False,,
 3,False,False,,
-4,False,False,,
-5,False,False,,
-6,False,False,,
-7,False,False,,
-8,False,False,,
-9,False,False,,
-10,False,False,,
-11,False,False,,
-12,True,True,-100.0,52.222222222222214
+4,True,True,-50.0,37.5
