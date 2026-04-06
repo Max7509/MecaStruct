@@ -73,7 +73,7 @@ def lecture_data(path: str) -> tuple[list[Noeud], list[Barre]]:
                     ux = False
                     uy = False
             else: 
-                raise ValueError(f"Ligne noeud invalide: {line!r}. Attendu: 'x y fx fy flag'.")
+                raise ValueError(f"Ligne noeud invalide: {line!r}. Attendu: 'x y fx fy liaison'.")
             
             idx = len(noeuds) # Les indices des noeuds permettrons d'y accrocher des barres
             pos = np.array([x, y], dtype=float)

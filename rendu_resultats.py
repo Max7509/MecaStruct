@@ -122,7 +122,13 @@ def print_resultats(S: np.ndarray, noeuds: list[Noeud], barres: list[Barre], par
             p1 = b.n1.pos
             p2 = b.n2.pos
             n_i = float(N[i])
-            couleur = "C3" if n_i >= 0 else "C0"  # traction / compression
+            N_seuil = 1e-6 * (max(abs(N))+1)
+            if abs(n_i) < N_seuil:
+                couleur = "k"
+            elif n_i > 0:
+                couleur = "C3"
+            else:
+                couleur = "C0"
             lw = 1.0 + 4.0 * (abs(n_i) / max_abs)
             plt.plot([p1[0], p2[0]], [p1[1], p2[1]], linewidth=lw, color=couleur)
 
@@ -195,14 +201,18 @@ def print_resultats(S: np.ndarray, noeuds: list[Noeud], barres: list[Barre], par
         xs = np.array([float(nd.pos[0]+a*nd.dpos[0]) for nd in noeuds])
         ys = np.array([float(nd.pos[1]+a*nd.dpos[1]) for nd in noeuds])
         plt.scatter(xs, ys, s=25, color="k")
-
-
         # Barres
         for i, b in enumerate(barres):
             p1 = b.n1.pos + a*b.n1.dpos
             p2 = b.n2.pos + a*b.n2.dpos
             n_i = float(N[i])
-            couleur = "C3" if n_i >= 0 else "C0"  # traction / compression
+            N_seuil = 1e-6 * (max(abs(N))+1)
+            if abs(n_i) < N_seuil:
+                couleur = "k"
+            elif n_i > 0:
+                couleur = "C3"
+            else:
+                couleur = "C0"
             plt.plot([p1[0], p2[0]], [p1[1], p2[1]], color=couleur)
 
         plt.axis("equal")

@@ -1,5 +1,5 @@
-Parametres
-outputs FALSE FALSE TRUE 0.04
+Parametres:
+outputs TRUE TRUE TRUE 0.05
 
 Noeuds:
 0 0 0 0 y

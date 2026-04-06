@@ -23,14 +23,14 @@ def resolution(noeuds: list[Noeud], barres: list[Barre]) -> np.ndarray:
     
     K = _constru_matrice(noeuds, barres)
     
-    K_inv = _invertion_matrice(K)
+    K_inv = _inversion_matrice(K)
     
     forces = np.zeros(len(K), dtype=float)
     for i in range(0, len(forces), 2):
-        forces[i  ] = -noeuds[int(i/2)].force[0]
-        forces[i+1] = -noeuds[int(i/2)].force[1]
+        forces[i  ] = noeuds[int(i/2)].force[0]
+        forces[i+1] = noeuds[int(i/2)].force[1]
     
-    S = K_inv @ forces
+    S = - K_inv @ forces
 
     """On calcule aussi le résidu, devrait être petit devant les forces"""
     norme = np.linalg.norm(forces)
@@ -75,7 +75,7 @@ def _constru_matrice(noeuds: list[Noeud], barres: list[Barre]) -> np.ndarray:
 
 
 
-def _invertion_matrice(A: np.ndarray) -> np.ndarray:
+def _inversion_matrice(A: np.ndarray) -> np.ndarray:
     """Calcule l'inverse de la matrice de rigidité du système."""
     n = len(A)
     matriceAug = np.zeros((n, 2*n), dtype=float)
@@ -123,6 +123,7 @@ def _invertion_matrice(A: np.ndarray) -> np.ndarray:
 
     
 def _deformation(noeuds: list[Noeud], barres: list[Barre], K_inv: np.ndarray, S: np.ndarray) -> None:
+    """Calcule le déplacement de chaque noeud avec la méthode de Mohr"""
     n = len(noeuds)
     b = len(barres)
     for i in range(n):
