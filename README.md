@@ -9,46 +9,30 @@ connectivité des barres). Il produit deux fichiers `.csv` et deux
 images `.png`. Les `.png` montrent un schéma du treillis avec une 
 interprétation graphique des résultats (efforts et déformée), et les 
 `.csv` donnent un tableau détaillé des informations de chaque barre 
-et de chaque nœud.
+et de chaque nœud. Le dossier PdeMecaStruct contient le code en java d'une version plus simples (sans les déformations) mais avec une interface graphique. Elle est utilisables directement avec l'IDE Processing.
 
 Le fichier `Rapport_MecaStruct.pdf` fait un rapport du projet et contient notamment des explications sur le format du fichier `.txt` d'entrée.
 ## Environnement virtuel
 
-Ce projet utilise Python 3. Il est recommandé d'utiliser un 
-environnement virtuel pour isoler les dépendances du projet de 
-votre installation Python globale.
+Ce projet utilise Python 3. Il utilise les librairies suivantes :
+`import numpy as np`
 
-Pour créer et activer l'environnement virtuel :
-```bash
-# Créer l'environnement virtuel
-python -m venv venv
+`import lecture_data as ld`
 
-# Activer l'environnement (Linux / macOS)
-source venv/bin/activate
+`import argparse`
 
-# Activer l'environnement (Windows)
-venv\Scripts\activate
-```
+`from pathlib import Path`
 
-Puis installer les dépendances :
-```bash
-pip install -r requirements.txt
-```
+`from __future__ import annotations`
 
-Pour désactiver l'environnement virtuel une fois le travail terminé :
-```bash
-deactivate
-```
+`import matplotlib.pyplot as plt`
 
-## Utilisation
-```bash
-python main.py exemple.txt
-```
-
+`import csv`
 
 ## Exemples
 
-Trois exemples sont fournis dans le dossier `exemples/` :
+Trois exemples sont fournis :
 - `exemple0.txt` : cas trivial à une barre
 - `exemple1.txt` : cas trivial à plusieurs barres
 - `exemple2.txt` : simplification d'un pont en arche
+Le dossier `outputs` donne les résultats de l'`exemple2.txt`.
